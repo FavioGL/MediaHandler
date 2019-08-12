@@ -1,0 +1,28 @@
+<beans:beans xmlns="http://www.springframework.org/schema/batch"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/batch
+           http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
+
+	<job id="job">
+		<step id="readAndSetup">
+			<tasklet>
+				<chunk reader="itemReader" processor="itemProcessor" writer="itemWriter" commit-interval="1" />
+			</tasklet>
+		</step>
+	</job>
+	
+	<beans:bean id="metadataReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<beans:property name="linesToSkip" value="1"></beans:property>
+		<beans:property name=""
+		
+	</beans:bean>
+	<beans:bean id="defaultLineMapper" class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+		<beans:property name="fieldSetMapper" value=""
+	</beans:bean>
+	<beans:bean id="itemProcessor" class="com.breakbot.media.step.FileProcessor"/>
+	<beans:bean id="itemWriter" class="com.breakbot.media.step.Writer"/>
+
+</beans:beans>
