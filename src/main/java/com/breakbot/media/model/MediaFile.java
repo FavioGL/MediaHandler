@@ -1,7 +1,7 @@
 package com.breakbot.media.model;
 
 import lombok.Data;
-
+/*breakbot 2019*/
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
