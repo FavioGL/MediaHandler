@@ -33,4 +33,5 @@ public class MediaFile implements Serializable {
     private Date fileCreationDate;
     private String targetPath;
     private String fileNewName;
+    private float fileSize;
 }
