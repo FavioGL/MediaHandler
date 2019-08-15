@@ -13,10 +13,16 @@
 			</tasklet>
 		</step>
 	</job>
-
-	<beans:bean id="metadataReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+	<job id="job2">
+		<step id="readAndSetup2">
+			<tasklet>
+				<chunk reader="metadataReader" processor="itemProcessor" writer="itemWriter" commit-interval="1" />
+			</tasklet>
+		</step>
+	</job>
+	<beans:bean id="metadataReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
 		<beans:property name="linesToSkip" value="1"></beans:property>
-		<beans:property name="resource" value="file:#{jobParameters['mediaFiles']}.csv"></beans:property>
+		<beans:property name="resource" value="file:#{jobParameters[mediaFiles]}"></beans:property>
 		<beans:property name="lineMapper">
 			<beans:bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
 				<beans:property name="lineTokenizer">

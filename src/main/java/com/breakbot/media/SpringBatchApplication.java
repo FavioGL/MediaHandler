@@ -7,10 +7,8 @@ import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
 @EnableBatchProcessing
-@ImportResource("classpath:batchjob.xml")
 public class SpringBatchApplication {
 	public static void main(String[] args) {
-
 		SpringApplication.run(SpringBatchApplication.class, args);
 	}
 }
