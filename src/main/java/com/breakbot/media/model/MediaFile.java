@@ -34,4 +34,5 @@ public class MediaFile implements Serializable {
     private String targetPath;
     private String fileNewName;
     private float fileSize;
+    private String fileNewPath;
 }

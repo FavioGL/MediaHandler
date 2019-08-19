@@ -6,20 +6,17 @@
            http://www.springframework.org/schema/batch
            http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
 
-	<job id="job">
-		<step id="readAndSetup">
+	<job id="job" incrementer="runIdIncrementer" restartable="true">
+		<step id="readAndSetup" next="rename">
 			<tasklet>
-				<chunk reader="metadataReader" processor="itemProcessor" writer="itemWriter" commit-interval="1" />
+				<chunk reader="metadataReader"  writer="itemWriter" commit-interval="200" />
 			</tasklet>
 		</step>
-	</job>
-	<job id="job2">
-		<step id="readAndSetup2">
-			<tasklet>
-				<chunk reader="metadataReader" processor="itemProcessor" writer="itemWriter" commit-interval="1" />
-			</tasklet>
+		<step id="rename">
+			<tasklet ref="renameFiles"></tasklet>
 		</step>
 	</job>
+
 	<beans:bean id="metadataReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
 		<beans:property name="linesToSkip" value="1"></beans:property>
 		<beans:property name="resource" value="file:#{jobParameters[mediaFiles]}"></beans:property>
@@ -39,6 +36,9 @@
 	</beans:bean>
 
 	<beans:bean id="itemProcessor" class="com.breakbot.media.step.FileProcessor"/>
-	<beans:bean id="itemWriter" class="com.breakbot.media.step.Writer"/>
-
+	<beans:bean id="itemWriter" class="com.breakbot.media.step.FileWriter"/>
+	<beans:bean id="renameFiles" class="com.breakbot.media.tasks.RenameFiles"/>
+	<!--beans:bean id="mediaList" class="com.breakbot.media.model.MediaList" scope="job"></beans:bean-->
+	<beans:bean id="runIdIncrementer"
+		  class="org.springframework.batch.core.launch.support.RunIdIncrementer"/>
 </beans:beans>

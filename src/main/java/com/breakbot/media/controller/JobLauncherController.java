@@ -31,6 +31,7 @@ public class JobLauncherController {
 	public String handle(@PathVariable("jobName") String jobName ) throws Exception {
 
 		Logger logger = LoggerFactory.getLogger(this.getClass());
+
 		try {
 			JobParameters jobParameters = new JobParametersBuilder().addLong("time", System.currentTimeMillis()).addString("mediaFiles","d:\\all_images.csv")
 					.toJobParameters();
